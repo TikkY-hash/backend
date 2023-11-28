@@ -99,9 +99,9 @@ export const authMe = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const tags = req.params.tags;
+    const tag = req.params.tag;
 
-    const users = await UserModel.find({ tags: tags }).select("-passwordHash");
+    const users = await UserModel.find({ tags: tag }).select("-passwordHash");
 
     res.json(users);
   } catch (error) {
