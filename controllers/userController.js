@@ -99,10 +99,15 @@ export const authMe = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await UserModel.find(req.userId).select("-passwordHash");
+    const tags = req.params.tags;
+
+    const users = await UserModel.find({ tags: tags }).select("-passwordHash");
 
     res.json(users);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 export const changeUser = async (req, res) => {
